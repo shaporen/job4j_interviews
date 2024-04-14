@@ -18,6 +18,10 @@
 
 [_к оглавлению_](#Оглавление)
 
+**2. Перечислите основные методы из интерфейса java.util.Collection.**
+
+boolean add(E e) - добавляет указанный элемент в коллекцию. Возвращает true, если элемент был успешно добавлен, и false в противном случае;
+
 **5. Какие есть типы коллекций? Как они характеризуются? Расскажите про иерархию коллекций List, Set, Map.**
 
 ![img](https://github.com/shaporen/job4j_interviews/blob/main/resources/collections_hierarchy.jpg)
