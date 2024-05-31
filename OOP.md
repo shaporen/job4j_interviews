@@ -551,14 +551,143 @@ person.setAge(30);
 
 [_к оглавлению_](#Оглавление)
 #### 13. Как вызвать метод из родительского класса?
+
+Для вызова метода из родительского класса в Java можно использовать ключевое слово `super`. 
+
+Пример кода:
+```java
+class ParentClass {
+    void printMessage() {
+        System.out.println("Hello from ParentClass");
+    }
+}
+
+class ChildClass extends ParentClass {
+    void printMessage() {
+        super.printMessage(); // вызываем метод из родительского класса
+        System.out.println("Hello from ChildClass");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        ChildClass child = new ChildClass();
+        child.printMessage();
+    }
+}
+```
+При выполнении данного кода на экране будет выведено:
+```
+Hello from ParentClass
+Hello from ChildClass
+```
+
 [_к оглавлению_](#Оглавление)
 #### 14. Что такое переопределение метода?
+
+Переопределение метода в Java - это процесс создания метода в подклассе с тем же именем, аргументами и возвращаемым типом как у метода в его суперклассе. Это позволяет подклассам иметь собственную реализацию метода, отличную от реализации в суперклассе.
+
+Пример кода:
+```java
+class Animal {
+    public void sound() {
+        System.out.println("Animal makes a sound");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    public void sound() {
+        System.out.println("Dog barks");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Animal animal = new Animal();
+        animal.sound(); // выводит: Animal makes a sound
+        
+        Dog dog = new Dog();
+        dog.sound(); // выводит: Dog barks
+    }
+}
+```
+В приведенном примере `Dog` класс наследует `Animal` класс и переопределяет метод `sound()`, чтобы сделать собственную реализацию звука собаки. Если вызвать метод `sound()` для экземпляра класса `Dog`, будет выполнена реализация метода из класса `Dog`, а не из родительского класса `Animal`.
+
+На усмотрение подкласса, переопределяющего метод, поля в переопределемом методе можно сделать final.
+
 [_к оглавлению_](#Оглавление)
 #### 15. Можно ли переопределить статический метод?
+
+Нет, статические методы в Java не могут быть переопределены в подклассах. При попытке создания метода с тем же именем и сигнатурой в подклассе будет создан новый статический метод, а не переопределение уже существующего метода. Это называется "сокрытие метода" (см. п. 16).
+
 [_к оглавлению_](#Оглавление)
 #### 16. Что такое сокрытие метода?
+
+Сокрытие метода (method hiding) в Java - это механизм, при котором дочерний класс объявляет метод с таким же именем и сигнатурой (аргументами) как в родительском классе, переопределяя его. В отличие от переопределения методов (method overriding), при сокрытии метода используется ключевое слово `static`.
+
+При использовании сокрытия метод точно так же как и в случае переопределения будет вызываться в зависимости от типа ссылки на объект, а не от типа самого объекта. Однако, при сокрытии метод не может быть полиморфным, так как статические методы связываются на этапе компиляции, а не выполнения программы, как это происходит при использовании динамического полиморфизма.
+
+Пример сокрытия метода в Java:
+
+```java
+class Parent {
+    static void display() {
+        System.out.println("Method from Parent class");
+    }
+}
+
+class Child extends Parent {
+    static void display() {
+        System.out.println("Method from Child class");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Parent parent = new Parent();
+        parent.display(); // "Method from Parent class"
+        
+        Parent child = new Child(); // ссылка типа родительского класса, но объект типа дочернего класса
+        child.display(); // "Method from Parent class"
+        
+        Child child2 = new Child();
+        child2.display(); // "Method from Child class"
+    }
+}
+```
+
 [_к оглавлению_](#Оглавление)
 #### 17. Что такое виртуальная функция и используются ли они в Java?
+
+Виртуальная функция - это функция, которая переопределяется в производных классах и вызывается в зависимости от типа объекта, а не типа переменной, которая содержит ссылку на этот объект.
+
+В Java все методы по умолчанию являются виртуальными, то есть они могут быть переопределены в подклассах. Полиморфизм в Java достигается за счет виртуальных функций, что позволяет использовать одно и то же имя метода, но каждый подкласс может реализовать его по-разному.
+
+Пример:
+```java
+class Animal {
+    public void makeSound() {
+        System.out.println("Animal makes a sound");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    public void makeSound() {
+        System.out.println("Dog barks");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Animal animal = new Dog();
+        animal.makeSound(); // Output: Dog barks
+    }
+}
+```
+Таким образом, виртуальные функции играют важную роль в объектно-ориентированных языках программирования, включая Java.
+
 [_к оглавлению_](#Оглавление)
 #### 18. Что такое перегрузка метода?
 [_к оглавлению_](#Оглавление)
