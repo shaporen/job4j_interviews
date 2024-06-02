@@ -204,7 +204,7 @@ JDK также включает библиотеки классов Java, кот
 
 #### 9. Опишите шаги для компиляции и запуска приложения в консоли: javac, java.
 
-
+![img](https://github.com/shaporen/job4j_interviews/blob/main/resources/CompileAndRun.png)
 
 [_к оглавлению_](#Оглавление)
 
