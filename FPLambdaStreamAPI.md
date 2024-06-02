@@ -58,7 +58,7 @@
 
 [29. Что такое числовой поток?](#29-Что-такое-числовой-поток)
 
-[30. Чем отличается Stream<Integer> от IntStream<int>?](#30-Чем-отличается-Stream<Integer>-от-IntStream<int>)
+[30. Чем отличается Stream<Integer> от IntStream<int>?](#30-Чем-отличается-StreamInteger-от-IntStreamint)
 
 [](#)
 
