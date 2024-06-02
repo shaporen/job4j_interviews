@@ -7,9 +7,9 @@
 + [1.3. Collections Lite](https://github.com/shaporen/job4j_interviews/blob/main/CollectionsLite.md)
 + [1.4. FP, Lambda, Stream API](https://github.com/shaporen/job4j_interviews/blob/main/FPLambdaStreamAPI.md)
 ### 2. Джуниор
-+ 2.1. Структуры данных и алгоритмы
-+ 2.2. Ввод-вывод
-+ 2.3. SQL, JDBC
-+ 2.4. Garbage Collection
-+ 2.5. Чистая архитектура
++ [2.1. Структуры данных и алгоритмы](https://github.com/shaporen/job4j_interviews/blob/main/CollectionsPro.md)
++ [2.2. Ввод-вывод](https://github.com/shaporen/job4j_interviews/blob/main/IO.md)
++ [2.3. SQL, JDBC](https://github.com/shaporen/job4j_interviews/blob/main/SQLJDBC.md)
++ [2.4. Garbage Collection](https://github.com/shaporen/job4j_interviews/blob/main/GarbageCollection.md)
++ [2.5. Чистая архитектура](https://github.com/shaporen/job4j_interviews/blob/main/CleanArchitecture.md)
 ### 3. Миддл
