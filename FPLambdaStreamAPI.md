@@ -77,4 +77,4 @@
 #### 3. Перечислите функциональные интерфейсы из пакета java.util.function.
 [_к оглавлению_](#Оглавление)
 #### 27. Что делают методы allMatch(), noneMatch() и anyMatch()?
-#### 30. Чем отличается Stream<Integer> от IntStream<int>?
+#### 30. Чем отличается Stream(Integer) от IntStream(int)?
