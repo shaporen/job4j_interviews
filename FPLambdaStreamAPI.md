@@ -50,7 +50,7 @@
 
 [25. Что делают методы forEach() и peek()?](#25-Что-делают-методы-forEach-и-peek)
 
-[26. Что делают методы skip() и limit()?](#26-Что-делают-методы-skip-и-limit?)
+[26. Что делают методы skip() и limit()?](#26-Что-делают-методы-skip-и-limit)
 
 [27. Что делают методы allMatch(), noneMatch() и anyMatch()?](#27-Что-делают-методы-allMatch-noneMatch-и-anyMatch)
 
