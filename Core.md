@@ -484,9 +484,52 @@ int[] array = new int[10];
 
 #### 21. Как присвоить значение ячейке массива?
 
+Чтобы присвоить значение ячейке массива в Java, нужно обратиться к этой ячейке по индексу и присвоить ей значение. Например:
+
+```java
+int[] array = new int[5]; // создаем массив из 5 элементов
+array[0] = 10; // присваиваем значение 10 первой ячейке массива
+array[1] = 20; // присваиваем значение 20 второй ячейке массива
+```
+
+В данном примере мы создали массив из 5 элементов и присвоили значения 10 и 20 первым двум ячейкам массива.
+
 [_к оглавлению_](#Оглавление)
 
 #### 22. Как можно пройти по всем элементам массива?
+
+1. Использовать цикл for:
+
+```java
+int[] array = {1, 2, 3, 4, 5};
+for (int i = 0; i < array.length; i++) {
+    System.out.println(array[i]);
+}
+```
+
+2. Использовать расширенный цикл for:
+
+```java
+int[] array = {1, 2, 3, 4, 5};
+for (int num : array) {
+    System.out.println(num);
+}
+```
+
+3. Использовать метод Arrays.stream() и метод forEach() из Java Stream API:
+
+```java
+int[] array = {1, 2, 3, 4, 5};
+Arrays.stream(array).forEach(num -> System.out.println(num));
+```
+
+4. Использовать метод Arrays.asList() и метод forEach() из Java Stream API:
+
+```java
+Integer[] array = {1, 2, 3, 4, 5};
+List<Integer> list = Arrays.asList(array);
+list.forEach(num -> System.out.println(num));
+```
 
 [_к оглавлению_](#Оглавление)
 
