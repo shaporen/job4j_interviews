@@ -1233,8 +1233,6 @@ Added functionality B
 
 Поведенческий паттерн, который определяет семейство классов, инкапсулирует их и делает их взаимозаменяемыми для использования в зависимости от обстоятельств.
 
-Основные принципы:
-
 Подробное описание с примером:
 https://habr.com/ru/articles/487858/
 
@@ -1317,8 +1315,97 @@ public class Main {
 
 [_к оглавлению_](#Оглавление)
 #### 49. Объясните шаблон - синглтон. Придумайте пример, не относящийся к технике.
+
+Шаблон синглтон в Java представляет собой паттерн проектирования, который гарантирует, что у класса есть только один экземпляр и предоставляет глобальную точку доступа к этому экземпляру.
+
+Подробное описание с примером:
+https://www.youtube.com/watch?v=vyr9GO7dLBQ
+
+Пример: предположим, у вас есть офис, в котором должен работать только один директор. Вы создаете шаблон синглтон, чтобы гарантировать, что в офисе всегда будет только один директор. Каждый сотрудник, приходящий в офис, должен знать, что они имеют доступ только к одному директору и обращаться к нему через определенный канал связи. Если бы у вас было бы несколько директоров, работа в офисе могла бы оказаться беспорядочной и неэффективной.
+
+![img](https://github.com/shaporen/job4j_interviews/blob/main/resources/singleton.png)
+
+В Java существует несколько способов реализации синглтона:
+
+1. Lazy Initialization (ленивая инициализация):
+```
+public class Singleton {
+   private static Singleton instance;
+
+   private Singleton() {}
+
+   public static Singleton getInstance() {
+      if (instance == null) {
+         instance = new Singleton();
+      }
+      return instance;
+   }
+}
+```
+
+2. Eager Initialization (жадная инициализация):
+```
+public class Singleton {
+   private static Singleton instance = new Singleton();
+
+   private Singleton() {}
+
+   public static Singleton getInstance() {
+      return instance;
+   }
+}
+```
+
+3. Thread-safe Singleton (потокобезопасный синглтон):
+```
+public class Singleton {
+   private static Singleton instance;
+
+   private Singleton() {}
+
+   public static synchronized Singleton getInstance() {
+      if (instance == null) {
+         instance = new Singleton();
+      }
+      return instance;
+   }
+}
+```
+
+4. Double Checked Locking Singleton (синглтон с двойной проверкой блокировки):
+```
+public class Singleton {
+   private volatile static Singleton instance;
+
+   private Singleton() {}
+
+   public static Singleton getInstance() {
+      if (instance == null) {
+         synchronized (Singleton.class) {
+            if (instance == null) {
+               instance = new Singleton();
+            }
+         }
+      }
+      return instance;
+   }
+}
+```
+
+5. Enum Singleton (синглтон с использованием перечисления):
+```
+public enum Singleton {
+   INSTANCE;
+}
+```
+
+Это лишь некоторые из возможных способов реализации синглтона в Java. каждый из них имеет свои особенности и подходит для определенных сценариев использования.
+
 [_к оглавлению_](#Оглавление)
 #### 50. Объясните шаблон - фабричный метод. Придумайте пример, не относящийся к технике.
+
+
+
 [_к оглавлению_](#Оглавление)
 #### 51. Что такое enum? Когда можно его применять?
 
