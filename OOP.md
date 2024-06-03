@@ -1127,7 +1127,7 @@ button.setOnClickListener(new OnClickListener() {
 [_к оглавлению_](#Оглавление)
 #### 47. Объясните шаблон - декоратор. Придумайте пример, не относящийся к технике.
 
-Структурный паттерн декоратор (Decorator) – один из наиболее известных и распространенных паттернов проектирования, используемых в Java. Он позволяет динамически добавлять новую функциональность к объектам, не изменяя их исходный код (а может и убирать). Можно добавлять дополнительные свойства в нужно последовательности, заворачивая исходный класс в декораторы (по принципу матрёшки). Это очень удобно, когда нужно добавить дополнительные возможности к уже существующему объекту.
+Структурный паттерн "Декоратор" (Decorator) – один из наиболее известных и распространенных паттернов проектирования, используемых в Java. Он позволяет динамически добавлять новую функциональность к объектам, не изменяя их исходный код (а может и убирать). Можно добавлять дополнительные свойства в нужно последовательности, заворачивая исходный класс в декораторы (по принципу матрёшки). Это очень удобно, когда нужно добавить дополнительные возможности к уже существующему объекту.
 
 ![img](https://github.com/shaporen/job4j_interviews/blob/main/resources/decorator_design_pattern_class_diagram.jpg)
 
@@ -1135,6 +1135,98 @@ button.setOnClickListener(new OnClickListener() {
 https://habr.com/ru/sandbox/186228/
 
 Пример - знаменитые сэндвичи SubWay. В меню мы имеем стандартные сэндвичи с возможностью добавления (или исключения) каких-либо дополнительных ингридиентов, соусов и т.д.
+
+Пример реализации шаблона "Декоратор" на языке Java:
+
+1. Создадим интерфейс для базового объекта:
+
+```java
+public interface Component {
+    void operation();
+}
+```
+
+2. Создадим конкретный класс, который реализует интерфейс Component:
+
+```java
+public class ConcreteComponent implements Component {
+    @Override
+    public void operation() {
+        System.out.println("Basic operation");
+    }
+}
+```
+
+3. Создадим абстрактный класс-декоратор, который также реализует интерфейс Component и содержит ссылку на объект Component:
+
+```java
+public abstract class Decorator implements Component {
+    private Component component;
+
+    public Decorator(Component component) {
+        this.component = component;
+    }
+
+    @Override
+    public void operation() {
+        component.operation();
+    }
+}
+```
+
+4. Создадим конкретные классы-декораторы, которые расширяют функционал объекта:
+
+```java
+public class ConcreteDecoratorA extends Decorator {
+    public ConcreteDecoratorA(Component component) {
+        super(component);
+    }
+
+    @Override
+    public void operation() {
+        super.operation();
+        System.out.println("Added functionality A");
+    }
+}
+```
+
+```java
+public class ConcreteDecoratorB extends Decorator {
+    public ConcreteDecoratorB(Component component) {
+        super(component);
+    }
+
+    @Override
+    public void operation() {
+        super.operation();
+        System.out.println("Added functionality B");
+    }
+}
+```
+
+5. Теперь можно создать объект и добавить к нему дополнительный функционал с помощью декораторов:
+
+```java
+Component component = new ConcreteComponent();
+component.operation();
+
+Component decoratedComponent = new ConcreteDecoratorA(new ConcreteComponent());
+decoratedComponent.operation();
+
+Component doubleDecoratedComponent = new ConcreteDecoratorB(new ConcreteDecoratorA(new ConcreteComponent()));
+doubleDecoratedComponent.operation();
+```
+
+При выполнении данного кода, мы получим следующий вывод:
+
+```
+Basic operation
+Basic operation
+Added functionality A
+Basic operation
+Added functionality A
+Added functionality B
+```
 
 [_к оглавлению_](#Оглавление)
 #### 48. Объясните шаблон - стратегия. Придумайте пример, не относящийся к технике.
@@ -1147,6 +1239,79 @@ https://habr.com/ru/sandbox/186228/
 https://habr.com/ru/articles/487858/
 
 Пример: представим, что у компании есть стратегия развития бизнеса, основанная на том, чтобы производить товары только из экологически чистых материалов. Однако, бизнес-план компании подразумевает различные методы производства, и в зависимости от текущей ситуации, компания может переключаться на разные стратегии. Так, если цены на экологически чистые материалы слишком высокие, компания может временно переключиться на использование более дешевых, но менее экологически чистых материалов. Это и есть пример шаблона стратегия в деле - возможность быстро менять подход в зависимости от текущей ситуации.
+
+Пример реализации шаблона "стратегия" на Java:
+
+1. Создадим интерфейс стратегии:
+```java
+public interface Strategy {
+    public int doOperation(int num1, int num2);
+}
+```
+
+2. Создадим конкретные стратегии, которые будут реализовывать интерфейс стратегии:
+```java
+public class AddStrategy implements Strategy {
+    @Override
+    public int doOperation(int num1, int num2) {
+        return num1 + num2;
+    }
+}
+
+public class SubtractStrategy implements Strategy {
+    @Override
+    public int doOperation(int num1, int num2) {
+        return num1 - num2;
+    }
+}
+
+public class MultiplyStrategy implements Strategy {
+    @Override
+    public int doOperation(int num1, int num2) {
+        return num1 * num2;
+    }
+}
+```
+
+3. Создадим класс, который будет использовать стратегию:
+```java
+public class Context {
+    private Strategy strategy;
+    
+    public Context(Strategy strategy) {
+        this.strategy = strategy;
+    }
+    
+    public int executeStrategy(int num1, int num2) {
+        return strategy.doOperation(num1, num2);
+    }
+}
+```
+
+4. Пример использования:
+```java
+public class Main {
+    public static void main(String[] args) {
+        Context context = new Context(new AddStrategy());
+        System.out.println("10 + 5 = " + context.executeStrategy(10, 5));
+        
+        context = new Context(new SubtractStrategy());
+        System.out.println("10 - 5 = " + context.executeStrategy(10, 5));
+        
+        context = new Context(new MultiplyStrategy());
+        System.out.println("10 * 5 = " + context.executeStrategy(10, 5));
+    }
+}
+```
+
+При запуске данного кода, мы получим следующий вывод:
+```
+10 + 5 = 15
+10 - 5 = 5
+10 * 5 = 50
+```
+
+Этот пример демонстрирует использование шаблона "стратегия" для выполнения различных арифметических операций. При необходимости, можно легко добавить новые стратегии или изменить текущие без изменения класса "Context".
 
 [_к оглавлению_](#Оглавление)
 #### 49. Объясните шаблон - синглтон. Придумайте пример, не относящийся к технике.
