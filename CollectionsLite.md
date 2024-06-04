@@ -290,36 +290,36 @@ list.stream()
 #### 13. Какие есть способы перебора всех элементов List?
 
 1. Цикл for:
-
+```java
 for (int i = 0; i < list.size(); i++) {
      // обработка элемента list.get(i)
 }
-
+```
 2. For-Each цикл:
-
+```java
 for (Элемент элемент : list) {
      // обработка элемента
 }
-
+```
 3. Использование Iterator:
-
+```java
 Iterator<Элемент> iterator = list.iterator();
 while (iterator.hasNext()) {
      // обработка элемента iterator.next()
 }
-
+```
 4. Использование forEach метода:
-
+```java
 list.forEach(element -> {
     // обработка элемента
 });
-
+```
 5. Использование Stream API:
-
+```java
 list.stream().forEach(element -> {
     // обработка элемента
 });
-
+```
 [_к оглавлению_](#Оглавление)
 #### 14. Расскажите о методах интерфейса Map.
 [_к оглавлению_](#Оглавление)
