@@ -411,10 +411,127 @@ public class Main {
 
 [_к оглавлению_](#Оглавление)
 #### 9. Как быть в ситуации, если внутри lambda-выражения операторы могут выкинуть исключение?
+
+В лямбда-выражениях в Java обработка исключений имеет свои особенности. Вот несколько подходов к решению ситуации, когда операторы внутри лямбда-выражения могут выкинуть исключение:
+
+1. Использование `throws`:
+
+* Описание: Самый простой подход — объявить, что лямбда-выражение может выбросить исключение, используя ключевое слово `throws` в сигнатуре метода, который принимает лямбду.
+* Пример:
+
+import java.util.function.Consumer;
+
+public class Main {
+    public static void main(String[] args) {
+        Consumer<Integer> myConsumer = (x) -> {
+            if (x == 0) {
+                throw new ArithmeticException("Деление на ноль!");
+            }
+        };
+
+        try {
+            myConsumer.accept(0); // Выброс исключения
+        } catch (ArithmeticException e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+    }
+}
+
+
+* Недостатки:  Этот подход не подходит, если лямбда-выражение передается методу, который не объявляет `throws` для этого исключения.
+
+2. Обработка исключений внутри лямбды:
+
+* Описание: Можно обработать исключение непосредственно внутри лямбда-выражения с помощью блока `try-catch`.
+* Пример:
+
+import java.util.function.Consumer;
+
+public class Main {
+    public static void main(String[] args) {
+        Consumer<Integer> myConsumer = (x) -> {
+            try {
+                if (x == 0) {
+                    throw new ArithmeticException("Деление на ноль!");
+                }
+            } catch (ArithmeticException e) {
+                System.out.println("Ошибка: " + e.getMessage());
+            }
+        };
+
+        myConsumer.accept(0); 
+    }
+}
+
+
+* Недостатки:  Может сделать код менее читаемым, особенно если обработка исключений сложная.
+
+3. Использование `Optional`:
+* Описание:  Если лямбда-выражение может вернуть значение, которое может быть `null`,  можно использовать `Optional` для явной обработки ситуации `null`.
+* Пример:
+
+import java.util.Optional;
+import java.util.function.Function;
+
+public class Main {
+    public static void main(String[] args) {
+        Function<String, Optional<Integer>> parseFunction = (str) -> {
+            try {
+                return Optional.of(Integer.parseInt(str));
+            } catch (NumberFormatException e) {
+                return Optional.empty();
+            }
+        };
+
+        Optional<Integer> result = parseFunction.apply("123"); // Возвращает Optional<Integer>
+        if (result.isPresent()) {
+            System.out.println("Результат: " + result.get());
+        } else {
+            System.out.println("Не удалось преобразовать в число.");
+        }
+    }
+}
+
+
+4. Использование `CheckedException`:
+
+* Описание: Если лямбда-выражение может выбросить проверенное исключение (CheckedException), то можно обернуть его в `RuntimeException` с помощью метода `RuntimeException.wrap`.
+* Пример:
+
+import java.io.IOException;
+import java.util.function.Supplier;
+
+public class Main {
+    public static void main(String[] args) {
+        Supplier<String> supplier = () -> {
+            throw new IOException("Ошибка ввода-вывода.");
+        };
+
+        try {
+            String result = supplier.get(); 
+        } catch (RuntimeException e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+    }
+}
+
+
+Дополнительные советы:
+
+* Общий подход: В идеале, обработка исключений должна быть централизованной и  проводиться на уровне более высокого уровня абстракции, а не внутри лямбда-выражений.
+* Проверка на `null`:   При использовании `Optional`  следует не забывать проверять на `null`  результаты  после  вызова `get()`, чтобы избежать `NullPointerException`.
+* Выбор метода:  Выбор  подхода зависит от конкретной ситуации и контекста, где используется лямбда-выражение.
+
 [_к оглавлению_](#Оглавление)
 #### 10. Что такое Stream API?
+
+
+
 [_к оглавлению_](#Оглавление)
 #### 11. Расскажите, какие шаблоны проектирования используются внутри Stream API? (Builder, Strategy, Decorator, Factory Method, Pipeline).
+
+
+
 [_к оглавлению_](#Оглавление)
 #### 12. Объясните, где они используются в Stream API.
 [_к оглавлению_](#Оглавление)
