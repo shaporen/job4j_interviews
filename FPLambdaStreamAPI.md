@@ -277,7 +277,7 @@ boolean result = isEvenAndPositive.test(4); // result == true
 Примеры:
 
 1. Ссылка на статический метод:
-
+```java
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
@@ -298,9 +298,9 @@ public class Main {
         System.out.println(parsedNumbers); // Вывод: [1, 2, 3, 4, 5]
     }
 }
-
+```
 2. Ссылка на метод экземпляра:
-
+```java
 import java.util.function.Consumer;
 
 class Dog {
@@ -320,10 +320,9 @@ public class Main {
         barkAction.accept(myDog);
     }
 }
-
-
+```
 3. Ссылка на конструктор:
-
+```java
 import java.util.function.Supplier;
 
 class Dog {
@@ -341,7 +340,7 @@ public class Main {
         Dog myDog = dogSupplier.get(); // Вызов конструктора Dog(String name)
     }
 }
-
+```
 
 Преимущества ссылок на методы:
 * Улучшение читаемости: ссылки на методы делают код более лаконичным и понятным, так как явно указывают на действие, которое нужно выполнить.
