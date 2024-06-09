@@ -973,7 +973,45 @@ if (max.isPresent()) {
 [_к оглавлению_](#Оглавление)
 #### 24. Что делают методы count(), sum(), average()?
 
+Методы `count()`, `sum()`, `average()` в Stream API Java предназначены для агрегирования данных из потока. Они позволяют получить краткое описание данных в потоке, не перебирая его полностью.
 
+`count()`: возвращает количество элементов в потоке.
+
+`sum()`: возвращает сумму всех элементов в потоке (применимо к числовым элементам).
+
+`average()`: возвращает среднее арифметическое всех элементов в потоке (применимо к числовым элементам).
+
+Пример:
+
+```java
+import java.util.Arrays;
+import java.util.List;
+
+public class StreamExample {
+
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+
+        // Подсчет элементов в потоке
+        long count = numbers.stream().count();
+        System.out.println("Количество элементов: " + count); // Вывод: Количество элементов: 5
+
+        // Суммирование элементов в потоке
+        int sum = numbers.stream().mapToInt(Integer::intValue).sum();
+        System.out.println("Сумма элементов: " + sum); // Вывод: Сумма элементов: 15
+
+        // Среднее арифметическое элементов в потоке
+        double average = numbers.stream().mapToInt(Integer::intValue).average().getAsDouble();
+        System.out.println("Среднее арифметическое: " + average); // Вывод: Среднее арифметическое: 3.0
+    }
+}
+```
+
+Важно:
+
+ `count()`, `sum()`, `average()` возвращают объекты, которые нужно преобразовать в нужный тип данных (например, `long` для `count()`, `int` для `sum()`).
+ `sum()` и `average()` применяются к числовым типам данных.
+ `average()` возвращает `OptionalDouble`, поэтому нужно использовать `getAsDouble()` для получения значения.
 
 [_к оглавлению_](#Оглавление)
 #### 25. Что делают методы forEach() и peek()?
