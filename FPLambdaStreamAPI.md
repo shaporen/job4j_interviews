@@ -99,25 +99,25 @@ int result = addition.operation(5, 3); // result = 8
 [_к оглавлению_](#Оглавление)
 #### 3. Перечислите функциональные интерфейсы из пакета java.util.function.
 
-1. Predicate<T>:
+**1. Predicate<T>:**
 
 + Описание: представляет функцию, которая принимает аргумент типа `T` и возвращает `boolean` значение (истина или ложь). 
 + Метод: `boolean test(T t)`
 + Пример: `Predicate<Integer> isEven = x -> x % 2 == 0;`
 
-2. Function<T, R>:
+**2. Function<T, R>:**
 
 + Описание: представляет функцию, которая принимает аргумент типа `T` и возвращает результат типа `R`. 
 + Метод: `R apply(T t)`
 + Пример: `Function<String, Integer> stringToInt = Integer::parseInt;`
 
-3. Consumer<T>:
+**3. Consumer<T>:**
 
 + Описание: представляет функцию, которая принимает аргумент типа `T` и не возвращает значение. 
 + Метод: `void accept(T t)`
 + Пример: `Consumer<String> printString = System.out::println;`
 
-4. Supplier<T>:
+**4. Supplier<T>:**
 
 + Описание: представляет функцию, которая не принимает аргументов и возвращает значение типа `T`.
 + Метод: `T get()`
