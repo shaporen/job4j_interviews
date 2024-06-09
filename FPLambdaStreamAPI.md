@@ -123,37 +123,37 @@ int result = addition.operation(5, 3); // result = 8
 + Метод: `T get()`
 + Пример: `Supplier<String> generateRandomString = () -> "randomString";`
 
-5. BiFunction<T, U, R>:
+**5. BiFunction<T, U, R>:**
 
 + Описание: представляет функцию, которая принимает два аргумента типов `T` и `U` и возвращает результат типа `R`. 
 + Метод: `R apply(T t, U u)`
 + Пример: `BiFunction<Integer, Integer, Integer> sum = (x, y) -> x + y;`
 
-6. BiConsumer<T, U>:
+**6. BiConsumer<T, U>:**
 
 + Описание: представляет функцию, которая принимает два аргумента типов `T` и `U` и не возвращает значение.
 + Метод: `void accept(T t, U u)`
 + Пример: `BiConsumer<String, String> concatStrings = (str1, str2) -> System.out.println(str1 + str2);`
 
-7. BiPredicate<T, U>:
+**7. BiPredicate<T, U>:**
 
 + Описание: представляет функцию, которая принимает два аргумента типов `T` и `U` и возвращает `boolean` значение.
 + Метод: `boolean test(T t, U u)`
 + Пример: `BiPredicate<String, String> areStringsEqual = (str1, str2) -> str1.equals(str2);`
 
-8. UnaryOperator<T>:
+**8. UnaryOperator<T>:**
 
 + Описание:  представляет функцию, которая принимает аргумент типа `T` и возвращает результат того же типа `T`. 
 + Метод: `T apply(T t)`
 + Пример: `UnaryOperator<Integer> square = x -> x  x;`
 
-9. BinaryOperator<T>:
+**9. BinaryOperator<T>:**
 
 + Описание: представляет функцию, которая принимает два аргумента типа `T` и возвращает результат того же типа `T`. 
 + Метод: `T apply(T t1, T t2)`
 + Пример: `BinaryOperator<Integer> max = (x, y) -> Math.max(x, y);`
 
-10. Comparator<T>:
+**10. Comparator<T>:**
 
 + Описание: представляет функцию, которая сравнивает два аргумента типа `T` и возвращает результат сравнения в виде `int`. 
 + Метод: `int compare(T o1, T o2)`
@@ -170,7 +170,7 @@ int result = addition.operation(5, 3); // result = 8
 
 Примеры:
 
-1. Прием функции в качестве аргумента:
+**1. Прием функции в качестве аргумента:**
 ```java
 import java.util.function.Function;
 
@@ -190,7 +190,7 @@ public class HigherOrderFunctions {
 ```
 В этом примере функция `apply` принимает функцию `x -> x  2` в качестве аргумента и возвращает ее. Затем эта функция применяется к числу 5.
 
-2. Возврат функции в качестве результата:
+**2. Возврат функции в качестве результата:**
 ```java
 import java.util.function.Function;
 
@@ -262,7 +262,7 @@ boolean result = isEvenAndPositive.test(4); // result == true
 
 Как работают ссылки на методы:
 
-1. Синтаксис: Ссылки на методы записываются с помощью знака двоеточия `::`, который разделяет имя класса и имя метода.
+1. Синтаксис: ссылки на методы записываются с помощью знака двоеточия `::`, который разделяет имя класса и имя метода.
 * `ClassName::methodName` - ссылка на статический метод.
 * `instanceName::methodName` - ссылка на метод экземпляра.
 * `ClassName::new` - ссылка на конструктор.
