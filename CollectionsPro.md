@@ -221,7 +221,7 @@ double sum = numberList.sum();
 
 В Java, неограниченные подстановочные знаки (`?`) используются для представления любого типа. Они могут применяться в различных контекстах, таких как:
 
-1. Параметры типов:
+***1. Параметры типов:***
 
  В качестве типа аргумента для обобщенных методов и классов:
     ```java
@@ -234,7 +234,7 @@ double sum = numberList.sum();
 
 В данном случае `printList` принимает список любого типа (`List<?>`).  Это означает, что можно передать список `Integer`, `String`, `Double` или любого другого типа. Однако, поскольку тип неизвестен, вы можете вызывать только методы, доступные для `Object` (например, `toString()`, `equals()`).
 
-2. В качестве типа возвращаемого значения:
+***2. В качестве типа возвращаемого значения:***
 
  В методах, возвращающих коллекцию любого типа:
     ```java
@@ -245,7 +245,7 @@ double sum = numberList.sum();
 
 В этом случае метод `getAnyList` возвращает список, который может содержать элементы любого типа. Однако, тип возвращаемого списка не может быть точно определен.
 
-3. В качестве типа переменной:
+***3. В качестве типа переменной:***
 
 Для хранения значений любого типа:
     ```java
@@ -276,12 +276,96 @@ public static <T> void printList(List<? extends T> list) {
 [_к оглавлению_](#Оглавление)
 #### 5. Где хранится информация про generics?
 
-
+Информация о Generics хранится в исходном коде до этапа компиляции. Во время компиляции компилятор Java удаляет информацию о Generics из скомпилированного кода в процессе, который называется стиранием типов (type erasure). Информация о Generics используется компилятором для проверки типов во время компиляции и для генерации предупреждений или ошибок, связанных с типами данных. Однако в скомпилированном байт-коде Java информация о Generics удаляется, и все обобщенные типы преобразуются в их необобщенные версии.
 
 [_к оглавлению_](#Оглавление)
 #### 6. Как можно получить тип generics?
 
+В Java нет прямого способа получить тип generic непосредственно, но есть несколько способов получить информацию о нем:
 
+1. Использование `Class#getGenericSuperclass()` и `Class#getGenericInterfaces()`:
+
+Эти методы возвращают `Type` объект, представляющий обобщенный суперкласс или интерфейс. Вы можете использовать `ParameterizedType` и `TypeVariable` для извлечения информации о типах.
+
+```java
+class MyClass<T> {
+    public static void main(String[] args) {
+        Type superclass = MyClass.class.getGenericSuperclass();
+        if (superclass instanceof ParameterizedType) {
+            ParameterizedType parameterizedType = (ParameterizedType) superclass;
+            Type[] typeArguments = parameterizedType.getActualTypeArguments();
+            System.out.println("Тип параметра: " + typeArguments[0]); // Вывод: T
+        }
+    }
+}
+```
+
+2. Использование `Method#getGenericParameterTypes()`:
+
+Этот метод возвращает массив `Type` объектов, представляющих типы параметров метода. Это полезно для получения информации о типах параметров обобщенных методов.
+
+```java
+class MyClass<T> {
+    public <E> void myMethod(E e) {
+        Type[] parameterTypes = MyClass.class.getMethod("myMethod", Object.class).getGenericParameterTypes();
+        System.out.println("Тип параметра: " + parameterTypes[0]); // Вывод: E
+    }
+}
+```
+
+3. Использование рефлексии:
+
+Вы можете использовать рефлексию для получения информации о типах generic. Например, вы можете получить `Field#getGenericType()` для получения типа generic поля.
+
+```java
+class MyClass<T> {
+    private T myField;
+
+    public static void main(String[] args) throws NoSuchFieldException {
+        Field field = MyClass.class.getDeclaredField("myField");
+        Type genericType = field.getGenericType();
+        if (genericType instanceof ParameterizedType) {
+            ParameterizedType parameterizedType = (ParameterizedType) genericType;
+            Type[] typeArguments = parameterizedType.getActualTypeArguments();
+            System.out.println("Тип параметра: " + typeArguments[0]); // Вывод: T
+        }
+    }
+}
+```
+
+4. Использование аннотаций:
+
+Вы можете использовать аннотации для передачи информации о типах generic. Например, вы можете использовать аннотации `@TypeParameter` и `@TypeVariable` для аннотирования типов параметров и переменных типов.
+
+```java
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE_PARAMETER)
+public @interface TypeParameter {
+    Class<?> type();
+}
+
+class MyClass<@TypeParameter(type = String.class) T> {
+    public static void main(String[] args) {
+        TypeVariable<?>[] typeVariables = MyClass.class.getTypeParameters();
+        for (TypeVariable<?> typeVariable : typeVariables) {
+            TypeParameter typeParameter = typeVariable.getAnnotation(TypeParameter.class);
+            if (typeParameter != null) {
+                System.out.println("Тип параметра: " + typeParameter.type()); // Вывод: class java.lang.String
+            }
+        }
+    }
+}
+```
+
+Важно:
+* Получение информации о типах generic не всегда просто, и может потребовать глубокого понимания рефлексии и API типов Java.
+* В некоторых случаях вы можете получить информацию о типах generic только во время выполнения, а не во время компиляции.
+* Будьте осторожны с использованием рефлексии, так как она может быть медленной и сложной.
 
 [_к оглавлению_](#Оглавление)
 #### 7. Что такое итератор? В чем разница между itetator и listIterator?
