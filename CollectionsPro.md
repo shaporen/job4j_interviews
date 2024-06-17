@@ -1200,6 +1200,82 @@ _Проект с документацией:_
 
 **3. Тег `packaging`**
 
+Тег `<packaging>` определяет какого типа файл будет создаваться как результат сборки. Возможные варианты `pom`, `jar`, `war`, `ear`.
+
+Тег является необязательным. Если его нет, используется значение по умолчанию - `jar`.
+
+**4. Описание проекта**
+
+Также добавляется информация, которая не используется самим Maven, но нужна для программиста, чтобы понять, о чём этот проект:
+```
+<name>powermock-core</name> название проекта для человека
+<description>PowerMock core functionality.</description> Описание проекта
+<url>http://www.powermock.org</url> сайт проекта
+```
+
+**5. Зависимости**
+
+Зависимости - следующая очень важная часть `pom.xml` - тут хранится список всех библиотек (зависимостей) которые используются в проекте. Каждая библиотека идентифицируется так же как и сам проект - тройкой `groupId`, `artifactId`, `version` (GAV). Объявление зависимостей заключено в теге `<dependencies>...</dependencies>`. 
+
+Кроме GAV при описании зависимости может присутствовать тег `<scope>`. Он задаёт, для чего библиотека используется. В данном примере говорится, что библиотека с GAV `junit.jupiter:junit-jupiter-engine:5.10.0` нужна только для выполнения тестов.
+```
+<dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>5.10.0</version>
+      <scope>test</scope>
+</dependency>
+```
+
+**6. Тег `<build>`**
+
+Тег <build>  не обязательный, так как существуют значения по умолчанию. Этот раздел содержит информацию по самой сборке:
+* где находятся исходные файлы,
+* где ресурсы,
+* какие плагины используются.
+```
+<sourceDirectory>src</sourceDirectory>
+    <resources>
+        <resource>
+            <directory>resources</directory>
+        </resource>
+    </resources>
+<plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>3.1.2</version>
+        <configuration>
+          <configLocation>checkstyle.xml</configLocation>
+          <encoding>UTF-8</encoding>
+          <consoleOutput>true</consoleOutput>
+          <failsOnError>true</failsOnError>
+          <includeTestSourceDirectory>true</includeTestSourceDirectory>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>com.puppycrawl.tools</groupId>
+            <artifactId>checkstyle</artifactId>
+            <version>10.3.1</version>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <id>validate</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+```
+* `<sourceDirectory>` - определяет, откуда Maven будет брать файлы исходного кода. По умолчанию это `src/main/java`, но вы можете определить, где это вам удобно. Директория может быть только одна (без использования специальных плагинов).
+* `<recources>` и вложенные в неё теги <recource> определяют, одну или несколько директорий, где хранятся файлы ресурсов. Ресурсы в отличие от файлов исходного кода при сборке просто копируются. Директория по умолчанию `src/main/resources`.
+* `<outputDirectory>` - определяет, в какую директорию компилятор будет сохранять результаты компиляции - `*.class` файлы. Значение по умолчанию - `target/classes`.
+* `<finalName>` - имя результирующего `jar (war, ear ...)` файла с соответствующим типу расширением, который создаётся на фазе package. Значение по умолчанию — `artifactId-version`.
+
+Maven плагины позволяют задать дополнительные действия, которые будут выполняться при сборке. Например, в приведённом примере добавлен плагин `checkstyle`, который автоматически делает проверку кода на наличие "плохого" кода и потенциальных ошибок.
+
 [_к оглавлению_](#Оглавление)
 #### 30. Что такое координаты зависимости?
 
