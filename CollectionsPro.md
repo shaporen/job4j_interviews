@@ -1142,14 +1142,16 @@ n = (byte) (n << 1);
 
 **Примеры:**
 
-Проект Java: 
+_Проект Java:_ 
 - `src/main/java`
 - `src/test/java`
-Проект Web: 
+
+_Проект Web:_ 
   - `src/main/java`
   - `src/main/webapp`
   - `src/test/java`
-Проект с документацией: 
+
+_Проект с документацией:_
   - `src/site`
   - `src/main/java`
 
