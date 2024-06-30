@@ -14,4 +14,4 @@
 + [2.5. Чистая архитектура](https://github.com/shaporen/job4j_interviews/blob/main/CleanArchitecture.md)
 ### 3. Миддл
 ### Дополнительные материалы
-+ [Patterns](https://github.com/shaporen/job4j_interviews/blob/main/Patterns.md)
++ [Шаблоны проектирования](https://github.com/shaporen/job4j_interviews/blob/main/Patterns.md)
