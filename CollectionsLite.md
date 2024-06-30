@@ -107,7 +107,7 @@
 [_к оглавлению_](#Оглавление)
 #### 5. Какие есть типы коллекций? Как они характеризуются? Расскажите про иерархию коллекций List, Set, Map.
 
-![img](https://github.com/shaporen/job4j_interviews/blob/main/resources/collections_hierarchy.jpg)
+![img](https://github.com/shaporen/job4j_interviews/blob/main/resources/Collections.png)
 
 + List - список.
 + Set - множество
