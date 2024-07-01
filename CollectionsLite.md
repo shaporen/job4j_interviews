@@ -238,7 +238,7 @@ list.add(new Person("Charlie"));
 
 Collections.sort(list, Comparator.comparing(Person::getName));
 
-System.out.println(list);
+System.out.println(list); // [Alice, Bob, Charlie]
 ```
 
 [_к оглавлению_](#Оглавление)
