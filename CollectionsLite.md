@@ -371,11 +371,11 @@ System.out.println("Keys: " + keys); // Keys: [Bob, Alice, Charlie]
 for (String key : keys) {
     System.out.println(key);
 }
-/*
+
 Bob
 Alice
 Charlie
-/
+
 ```
 
 2. Метод `entrySet()`:
@@ -392,11 +392,16 @@ ages.put("Bob", 30);
 ages.put("Charlie", 28);
 
 Set<Map.Entry<String, Integer>> entries = ages.entrySet();
-System.out.println("Entries: " + entries);
+System.out.println("Entries: " + entries); //Entries: [Bob=30, Alice=25, Charlie=28]
 
 for (Map.Entry<String, Integer> entry : entries) {
     System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
 }
+
+Key: Bob, Value: 30
+Key: Alice, Value: 25
+Key: Charlie, Value: 28
+
 ```
 
 Ключевые моменты:
