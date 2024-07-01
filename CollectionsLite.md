@@ -225,7 +225,7 @@ list.add(2);
 
 Collections.sort(list);
 
-System.out.println(list);
+System.out.println(list); // [1, 2, 3]
 ```
 
 Если нужно отсортировать коллекцию объектов, не реализующих интерфейс Comparable, можно использовать метод Collections.sort() с передачей вторым аргументом объекта Comparator. Например, если нужно отсортировать список объектов по полю name:
