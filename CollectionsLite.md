@@ -272,7 +272,7 @@ Comparable и Comparator - два интерфейса, используемых
 List<String> list = Arrays.asList("b", "a", "c");
 list.stream()
     .sorted()
-    .forEach(System.out::println);
+    .forEach(System.out::print); // abc
 ```
 
 Этот код отсортирует список строк по принципу Natural Order и выведет элементы в отсортированном порядке.
