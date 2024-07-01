@@ -366,11 +366,16 @@ ages.put("Bob", 30);
 ages.put("Charlie", 28);
 
 Set<String> keys = ages.keySet();
-System.out.println("Keys: " + keys); 
+System.out.println("Keys: " + keys); // Keys: [Bob, Alice, Charlie]
 
 for (String key : keys) {
     System.out.println(key);
 }
+/*
+Bob
+Alice
+Charlie
+/
 ```
 
 2. Метод `entrySet()`:
