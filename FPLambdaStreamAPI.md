@@ -738,7 +738,7 @@ import java.util.function.Function;
 public class Main {
 
     public static void main(String[] args) {
-        Function<Integer, Integer> square = x -> x  x; // Лямбда-выражение
+        Function<Integer, Integer> square = x -> x * x; // Лямбда-выражение
 
         // Отложенное выполнение: код лямбды не выполняется здесь
         System.out.println(square); // Выведет ссылку на объект лямбды
