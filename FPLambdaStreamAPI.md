@@ -170,46 +170,107 @@ int result = addition.operation(5, 3); // result = 8
 
 Примеры:
 
-**1. Прием функции в качестве аргумента:**
+**1. Принятие функции в качестве аргумента:**
+
 ```java
 import java.util.function.Function;
 
 public class HigherOrderFunctions {
 
     public static void main(String[] args) {
-        // Функция, которая принимает функцию и применяет ее к числу
-        Function<Integer, Integer> applyFunction = apply(x -> x  2);
-        System.out.println(applyFunction.apply(5)); // Вывод: 10
+        // Определение функции, которая будет передана в качестве аргумента
+        Function<Integer, Integer> square = x -> x  x;
+
+        // Вызов функции высшего порядка, передавая функцию square в качестве аргумента
+        int result = applyFunction(square, 5);
+
+        System.out.println("Результат: " + result); // Вывод: Результат: 25
     }
 
-    // Функция высшего порядка, которая принимает функцию и применяет ее к аргументу
-    public static <T> Function<T, T> apply(Function<T, T> function) {
-        return function;
+    // Функция высшего порядка, принимающая функцию в качестве аргумента
+    public static int applyFunction(Function<Integer, Integer> function, int x) {
+        return function.apply(x);
     }
 }
 ```
-В этом примере функция `apply` принимает функцию `x -> x  2` в качестве аргумента и возвращает ее. Затем эта функция применяется к числу 5.
+
+Описание действий:
+
+1. Определение функции `square`: Эта функция принимает целое число и возвращает его квадрат.
+2. Определение функции `applyFunction`: Эта функция высшего порядка принимает две вещи: 
+     `function` -  функцию, которая будет применена к аргументу `x`.
+     `x` - аргумент для функции.
+3. Вызов функции `applyFunction`: Функция `applyFunction` вызывается с функцией `square` и числом 5. 
+4. Применение функции: Внутри `applyFunction` функция `square` применяется к 5, и результат (25) возвращается.
 
 **2. Возврат функции в качестве результата:**
+
 ```java
 import java.util.function.Function;
 
 public class HigherOrderFunctions {
 
     public static void main(String[] args) {
-        // Функция, которая возвращает функцию, умножающую на заданное число
-        Function<Integer, Function<Integer, Integer>> multiplier = multiplier(3);
-        Function<Integer, Integer> triple = multiplier.apply(5);
-        System.out.println(triple.apply(2)); // Вывод: 6
+        // Вызов функции, возвращающей функцию
+        Function<Integer, Integer> addFive = createAdder(5);
+
+        // Применение функции, возвращённой из createAdder
+        int result = addFive.apply(10);
+
+        System.out.println("Результат: " + result); // Вывод: Результат: 15
     }
 
-    // Функция высшего порядка, которая возвращает функцию умножения
-    public static Function<Integer, Function<Integer, Integer>> multiplier(int factor) {
-        return x -> y -> x  y  factor;
+    // Функция высшего порядка, возвращающая функцию
+    public static Function<Integer, Integer> createAdder(int value) {
+        return x -> x + value;
     }
 }
 ```
-В этом примере функция `multiplier` возвращает другую функцию, которая умножает входное число на `factor`. Эта функция затем применяется к числу 2, умножая его на 3 и 5.
+
+Описание действий:
+
+1. Определение функции `createAdder`: Эта функция высшего порядка принимает число `value` и возвращает функцию, которая прибавляет `value` к своему аргументу.
+2. Вызов функции `createAdder`: Вызов `createAdder(5)` возвращает функцию, которая прибавляет 5 к своему аргументу. 
+3. Сохранение результата: Возвращённая функция сохраняется в переменную `addFive`.
+4. Применение возвращённой функции: Функция `addFive` применяется к 10, и результат (15) возвращается.
+
+**3. Пример с использованием лямбда-выражений:**
+
+```java
+import java.util.List;
+import java.util.Arrays;
+import java.util.function.Predicate;
+
+public class HigherOrderFunctions {
+
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+
+        // Фильтрация списка с помощью лямбда-выражения
+        List<Integer> evenNumbers = filter(numbers, x -> x % 2 == 0);
+
+        System.out.println("Чётные числа: " + evenNumbers); // Вывод: Чётные числа: [2, 4]
+    }
+
+    // Функция высшего порядка, использующая лямбда-выражение
+    public static <T> List<T> filter(List<T> list, Predicate<T> predicate) {
+        List<T> filteredList = new ArrayList<>();
+        for (T element : list) {
+            if (predicate.test(element)) {
+                filteredList.add(element);
+            }
+        }
+        return filteredList;
+    }
+}
+```
+
+Описание действий:
+
+1. Определение `filter`: Эта функция высшего порядка принимает список `list` и лямбда-выражение `predicate`.
+2. Фильтрация: В цикле `filter` проверяет каждый элемент `list` с помощью `predicate.test(element)`. Если результат `true`, элемент добавляется в `filteredList`.
+3. Применение `filter`: Функция `filter` применяется к списку чисел `numbers` и лямбда-выражению `x -> x % 2 == 0`, которое определяет чётность числа.
+4. Результат: Возвращается новый спис
 
 Преимущества использования функций высшего порядка:
 + Повышение читаемости кода: Четко разделяет логику и повышает модульность кода.
