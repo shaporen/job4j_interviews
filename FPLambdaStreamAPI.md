@@ -179,7 +179,7 @@ public class HigherOrderFunctions {
 
     public static void main(String[] args) {
         // Определение функции, которая будет передана в качестве аргумента
-        Function<Integer, Integer> square = x -> x  x;
+        Function<Integer, Integer> square = x -> x * x;
 
         // Вызов функции высшего порядка, передавая функцию square в качестве аргумента
         int result = applyFunction(square, 5);
