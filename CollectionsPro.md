@@ -228,7 +228,7 @@ double sum = numberList.sum();
 public static <T> void printList(List<?> list) {
   for (Object obj : list) {
     System.out.println(obj);
-        }
+    }
 }
 ```
 
@@ -236,21 +236,21 @@ public static <T> void printList(List<?> list) {
 
 ***2. В качестве типа возвращаемого значения:***
 
- В методах, возвращающих коллекцию любого типа:
-    ```java
-    public static List<?> getAnyList() {
-        return new ArrayList<String>();
-    }
-    ```
+В методах, возвращающих коллекцию любого типа:
+```java
+  public static List<?> getAnyList() {
+    return new ArrayList<String>();
+}
+```
 
 В этом случае метод `getAnyList` возвращает список, который может содержать элементы любого типа. Однако, тип возвращаемого списка не может быть точно определен.
 
 ***3. В качестве типа переменной:***
 
 Для хранения значений любого типа:
-    ```java
-    List<?> anyList = new ArrayList<String>();
-    ```
+```java
+List<?> anyList = new ArrayList<String>();
+```
 
 В данном случае переменная `anyList` может хранить список любого типа. Однако, как и в случае с параметрами типов, вы можете вызывать только методы, доступные для `Object`.
 
