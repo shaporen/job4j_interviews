@@ -223,14 +223,14 @@ double sum = numberList.sum();
 
 ***1. Параметры типов:***
 
- В качестве типа аргумента для обобщенных методов и классов:
-    ```java
-    public static <T> void printList(List<?> list) {
-        for (Object obj : list) {
-            System.out.println(obj);
+В качестве типа аргумента для обобщенных методов и классов:
+```java
+public static <T> void printList(List<?> list) {
+  for (Object obj : list) {
+    System.out.println(obj);
         }
-    }
-    ```
+}
+```
 
 В данном случае `printList` принимает список любого типа (`List<?>`).  Это означает, что можно передать список `Integer`, `String`, `Double` или любого другого типа. Однако, поскольку тип неизвестен, вы можете вызывать только методы, доступные для `Object` (например, `toString()`, `equals()`).
 
