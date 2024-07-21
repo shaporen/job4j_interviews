@@ -12,6 +12,7 @@
 + [2.3. SQL, JDBC](https://github.com/shaporen/job4j_interviews/blob/main/SQLJDBC.md)
 + [2.4. Garbage Collection](https://github.com/shaporen/job4j_interviews/blob/main/GarbageCollection.md)
 + [2.5. Чистая архитектура](https://github.com/shaporen/job4j_interviews/blob/main/CleanArchitecture.md)
++ [2.6. Алгоритмы на собеседовании](https://github.com/shaporen/job4j_interviews/blob/main/InterviewAlgorithms.md)
 ### 3. Миддл
 ### Дополнительные материалы
 + [Шаблоны проектирования](https://github.com/shaporen/job4j_interviews/blob/main/Patterns.md)
