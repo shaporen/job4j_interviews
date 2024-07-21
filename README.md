@@ -15,6 +15,6 @@
 + [2.6. Алгоритмы на собеседовании](https://github.com/shaporen/job4j_interviews/blob/main/InterviewAlgorithms.md)
 ### 3. Миддл
 ### Дополнительные материалы
-+ [Шаблоны проектирования](https://github.com/shaporen/job4j_interviews/blob/main/Patterns.md)
++ [Алгоритмы](https://github.com/shaporen/job4j_interviews/blob/main/Algorithms.md)
 + [Микросервисы](https://github.com/shaporen/job4j_interviews/blob/main/Microservices.md)
-+ [Алгоритмы]()
++ [Шаблоны проектирования](https://github.com/shaporen/job4j_interviews/blob/main/Patterns.md)
