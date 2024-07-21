@@ -17,3 +17,4 @@
 ### Дополнительные материалы
 + [Шаблоны проектирования](https://github.com/shaporen/job4j_interviews/blob/main/Patterns.md)
 + [Микросервисы](https://github.com/shaporen/job4j_interviews/blob/main/Microservices.md)
++ [Алгоритмы]()
