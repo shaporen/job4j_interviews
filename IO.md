@@ -92,6 +92,9 @@ try (FileOutputStream fos = new FileOutputStream("output.txt")) {
 
 [_к оглавлению_](#Оглавление)
 #### 2. Что такое Java IO?
+
+[Основные отличия Java IO и Java NIO](https://habr.com/ru/articles/235585/)
+
 [_к оглавлению_](#Оглавление)
 #### 3. Что такое Java NIO?
 [_к оглавлению_](#Оглавление)
