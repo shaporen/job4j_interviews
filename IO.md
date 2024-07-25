@@ -93,6 +93,103 @@ try (FileOutputStream fos = new FileOutputStream("output.txt")) {
 [_к оглавлению_](#Оглавление)
 #### 2. Что такое Java IO?
 
+Java IO (Input/Output, Ввод/Вывод) - это система, которая позволяет программам Java взаимодействовать с внешним миром. Она предоставляет набор классов и интерфейсов для чтения данных из источников (файлов, сети, консоли) и записи данных в различные места (файлы, сеть, консоль). 
+
+Основные принципы Java IO:
++ Потоки: Java IO использует концепцию потоков. Поток - это последовательность байтов, передаваемых между программой и внешним источником.
++ Byte streams: Работают с байтовыми данными.
++ Character streams: Работают с символами (например, текст).
++ Buffered streams: Используют буфер для оптимизации ввода-вывода, что повышает производительность.
++ Filters:  Фильтры  могут преобразовывать данные (например, сжатие) или выполнять дополнительные операции (например, шифрование).
+
+Основные классы Java IO:
+
+1. Основные классы:
++ InputStream: Базовый класс для входных потоков.
++ OutputStream: Базовый класс для выходных потоков.
++ Reader: Базовый класс для входных потоков символов.
++ Writer: Базовый класс для выходных потоков символов.
+
+2. Классы для работы с файлами:
++ File: Представляет файл или директорию.
++ FileInputStream: Чтение данных из файла.
++ FileOutputStream: Запись данных в файл.
++ FileReader: Чтение символов из файла.
++ FileWriter: Запись символов в файл.
++ RandomAccessFile: Доступ к данным в файле в произвольном порядке.
+
+3. Классы для работы с сетью:
++ Socket: Представляет сокет, используемый для сетевого общения.
++ ServerSocket: Представляет серверный сокет, используемый для прослушивания подключений.
++ InputStreamReader: Чтение символов из сетевого потока.
++ OutputStreamWriter: Запись символов в сетевой поток.
+
+4. Буферизированные потоки:
++ BufferedInputStream:  Вспомогательный класс для чтения данных из потока с использованием буфера.
++ BufferedOutputStream:  Вспомогательный класс для записи данных в поток с использованием буфера.
++ BufferedReader:  Вспомогательный класс для чтения символов из потока с использованием буфера.
++ BufferedWriter:  Вспомогательный класс для записи символов в поток с использованием буфера.
+
+5. Фильтры:
++ InputStreamReader: Преобразует байтовый поток в поток символов.
++ OutputStreamWriter: Преобразует поток символов в байтовый поток.
++ DataInputStream:  Чтение примитивных типов данных из потока.
++ DataOutputStream:  Запись примитивных типов данных в поток.
++ GZIPInputStream:  Декомпрессия потока данных, сжатого алгоритмом GZIP.
++ GZIPOutputStream:  Компрессия потока данных алгоритмом GZIP.
+
+Примеры использования классов:
+1. Чтение данных из файла:
+```java
+try (FileReader reader = new FileReader("file.txt")) {
+    int data;
+    while ((data = reader.read()) != -1) {
+        System.out.print((char) data);
+    }
+} catch (IOException e) {
+    System.err.println("Ошибка чтения файла: " + e.getMessage());
+}
+```
+
+2. Запись данных в файл:
+```java
+try (FileWriter writer = new FileWriter("file.txt")) {
+    writer.write("Это тестовая запись в файл.");
+} catch (IOException e) {
+    System.err.println("Ошибка записи в файл: " + e.getMessage());
+}
+```
+
+3. Создание сетевого сокета:
+```java
+try (Socket socket = new Socket("localhost", 8080)) {
+    // Общение по сокету
+} catch (IOException e) {
+    System.err.println("Ошибка подключения к серверу: " + e.getMessage());
+}
+```
+
+4. Использование буферизированного потока:
+```java
+try (BufferedReader reader = new BufferedReader(new FileReader("file.txt"))) {
+    String line;
+    while ((line = reader.readLine()) != null) {
+        System.out.println(line);
+    }
+} catch (IOException e) {
+    System.err.println("Ошибка чтения файла: " + e.getMessage());
+}
+```
+
+5. Использование фильтра для сжатия данных:
+```java
+try (GZIPOutputStream gzip = new GZIPOutputStream(new FileOutputStream("compressed.gz"))) {
+    // Запись данных в сжатый поток
+} catch (IOException e) {
+    System.err.println("Ошибка сжатия данных: " + e.getMessage());
+}
+```
+
 [Основные отличия Java IO и Java NIO](https://habr.com/ru/articles/235585/)
 
 [_к оглавлению_](#Оглавление)
