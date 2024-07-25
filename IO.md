@@ -107,25 +107,116 @@ ava IO (Input/Output) — это набор классов и интерфейс
 - ByteArrayInputStream: чтение данных из массива байтов.
 - ByteArrayOutputStream: запись данных в массив байтов.
 
-2. Reader и Writer:
-  - Эти абстрактные классы представляют собой базовые классы для работы с текстовыми потоками.
-  - Reader: используется для чтения символов из источника данных.
-  - Writer: используется для записи символов в приемник данных.
-  - Примеры:
-   - FileReader: чтение символов из файла.
-   - FileWriter: запись символов в файл.
-   - InputStreamReader: чтение символов из потока байтов.
-   - OutputStreamWriter: запись символов в поток байтов.
+**2. Reader и Writer:** - эти абстрактные классы представляют собой базовые классы для работы с текстовыми потоками.
+- Reader: используется для чтения символов из источника данных.
+- Writer: используется для записи символов в приемник данных.
 
-3. ObjectInputStream и ObjectOutputStream:
-  - Эти классы используются для сериализации и десериализации объектов Java.
-  - ObjectInputStream: для чтения объектов из потока.
-  - ObjectOutputStream: для записи объектов в поток.
+**Примеры:**
+- FileReader: чтение символов из файла.
+- FileWriter: запись символов в файл.
+- InputStreamReader: чтение символов из потока байтов.
+- OutputStreamWriter: запись символов в поток байтов.
 
-4. BufferedReader и BufferedWriter:
-  - Эти классы используются для оптимизированного чтения и записи данных из/в текстовые потоки.
-  - BufferedReader: для чтения данных по строкам.
-  - BufferedWriter: для записи данных по строкам.
+**3. ObjectInputStream и ObjectOutputStream:** - эти классы используются для сериализации и десериализации объектов Java.
+- ObjectInputStream: для чтения объектов из потока.
+- ObjectOutputStream: для записи объектов в поток.
+
+**4. BufferedReader и BufferedWriter:** - эти классы используются для оптимизированного чтения и записи данных из/в текстовые потоки.
+- BufferedReader: для чтения данных по строкам.
+- BufferedWriter: для записи данных по строкам.
+
+**1. Пример записи в файл:**
+```java
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class FileWriteExample {
+    public static void main(String[] args) {
+        try (FileWriter fileWriter = new FileWriter("output.txt")) {
+            fileWriter.write("Hello, Java IO!");
+            System.out.println("Данные записаны в файл.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+**2. Пример чтения из файла:**
+```java
+import java.io.FileReader;
+import java.io.IOException;
+
+public class FileReadExample {
+    public static void main(String[] args) {
+        try (FileReader fileReader = new FileReader("output.txt")) {
+            int character;
+            while ((character = fileReader.read()) != -1) {
+                System.out.print((char) character);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+**3. Пример сериализации объекта:**
+```java
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
+public class ObjectSerializationExample {
+    public static void main(String[] args) {
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("person.dat"))) {
+            Person person = new Person("John", 30);
+            objectOutputStream.writeObject(person);
+            System.out.println("Объект сериализован.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+class Person implements java.io.Serializable {
+    private String name;
+    private int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+    // ... getters and setters
+}
+```
+
+**4. Пример десериализации объекта:**
+```java
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
+public class ObjectDeserializationExample {
+    public static void main(String[] args) {
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("person.dat"))) {
+            Person person = (Person) objectInputStream.readObject();
+            System.out.println("Десериализованный объект: " + person.getName() + ", " + person.getAge());
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+## Преимущества Java IO
+- Простая и удобная в использовании: Java IO предоставляет простой и интуитивно понятный API для работы с различными источниками и приемниками данных.
+- Широкая поддержка: поддерживает различные форматы данных, включая текстовые, двоичные, объекты и т. д.
+- Хорошо документирована: Java IO хорошо документирована, что облегчает понимание и использование.
+
+## Ограничения Java IO
+- Блокирующий ввод-вывод: традиционные классы Java IO работают в блокирующем режиме, что может снизить производительность в многопоточных приложениях.
+- Низкая производительность для больших объемов данных: Java IO может быть менее эффективен для работы с большими файлами и высокопроизводительными сетевыми приложениями.
 
 [Основные отличия Java IO и Java NIO](https://habr.com/ru/articles/235585/)
 
@@ -153,7 +244,7 @@ Java NIO (New Input/Output) — это пакет, введенный в Java 1.
 Пример класса:
 - Selector: непосредственно для отслеживания нескольких подключений. 
 
-**Пример работы с FileChannel**
+**1. Пример работы с FileChannel**
 ```java
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -186,7 +277,7 @@ public class FileChannelExample {
     }
 }
 ```
-**Пример работы с SocketChannel**
+**2. Пример работы с SocketChannel**
 ```java
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -216,7 +307,7 @@ public class SocketChannelExample {
 }
 ```
 
-**Пример работы с Selector**
+**3. Пример работы с Selector**
 ```java
 import java.io.IOException;
 import java.net.InetSocketAddress;
