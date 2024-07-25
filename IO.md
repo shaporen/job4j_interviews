@@ -217,7 +217,7 @@ Java NIO (New Input/Output) — это пакет, введенный в Java 1.
 - Selector: непосредственно для отслеживания нескольких подключений. 
 
 **Пример работы с FileChannel**
-```java```
+```java
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.file.StandardOpenOption;
@@ -248,7 +248,7 @@ public class FileChannelExample {
         }
     }
 }
-```java```
+```
 
 [_к оглавлению_](#Оглавление)
 #### 4. Что такое NIO.2?
