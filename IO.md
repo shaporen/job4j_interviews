@@ -249,6 +249,88 @@ public class FileChannelExample {
     }
 }
 ```
+**Пример работы с SocketChannel**
+```java
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.channels.SocketChannel;
+
+public class SocketChannelExample {
+    public static void main(String[] args) {
+        try (SocketChannel socketChannel = SocketChannel.open()) {
+            socketChannel.connect(new InetSocketAddress("localhost", 9999));
+            
+            String message = "Hello, Server!";
+            ByteBuffer buffer = ByteBuffer.allocate(256);
+            buffer.clear();
+            buffer.put(message.getBytes());
+            buffer.flip(); // переключаемся в режим чтения
+            
+            while (buffer.hasRemaining()) {
+                socketChannel.write(buffer);
+            }
+
+            System.out.println("Сообщение отправлено на сервер.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+**Пример работы с Selector**
+```java
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.channels.Selector;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
+
+public class SelectorExample {
+
+    public static void main(String[] args) throws IOException {
+        Selector selector = Selector.open();
+        ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
+        serverSocketChannel.bind(new InetSocketAddress(9999));
+        serverSocketChannel.configureBlocking(false);
+        serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
+
+        while (true) {
+            selector.select(); // блокировать до появления событий
+
+            var selectedKeys = selector.selectedKeys();
+            var keyIterator = selectedKeys.iterator();
+
+            while (keyIterator.hasNext()) {
+                SelectionKey key = keyIterator.next();
+
+                if (key.isAcceptable()) {
+                    SocketChannel client = serverSocketChannel.accept();
+                    client.configureBlocking(false);
+                    client.register(selector, SelectionKey.OP_READ);
+
+                    System.out.println("Присоединился клиент: " + client.getRemoteAddress());
+                } else if (key.isReadable()) {
+                    SocketChannel client = (SocketChannel) key.channel();
+                    ByteBuffer buffer = ByteBuffer.allocate(256);
+                    int bytesRead = client.read(buffer);
+                    
+                    if (bytesRead > 0) {
+                        buffer.flip(); // переключаемся в режим чтения
+                        System.out.println("Получены данные: " + new String(buffer.array(), 0, bytesRead));
+                    }
+                }
+                
+                keyIterator.remove();
+            }
+        }
+    }
+}
+```
+[Основные отличия Java IO и Java NIO](https://habr.com/ru/articles/235585/)
 
 [_к оглавлению_](#Оглавление)
 #### 4. Что такое NIO.2?
