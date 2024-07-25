@@ -377,11 +377,75 @@ _**Более удобный API**_ - NIO.2 предлагает более пр
 
 _**Поддержка различных файловых систем**_ - NIO.2 позволяет работать с различными файловыми системами, включая локальные, сетевые и облачные хранилища. 
 
-_**Асинхронный ввод-вывод:**_ -  NIO.2 предоставляет возможность выполнять операции ввода-вывода асинхронно, что позволяет приложению не блокироваться во время выполнения операций ввода-вывода.
+_**Асинхронный ввод-вывод**_ -  NIO.2 предоставляет возможность выполнять операции ввода-вывода асинхронно, что позволяет приложению не блокироваться во время выполнения операций ввода-вывода.
 
-_**Поддержка метаданных:**_ -  NIO.2 предоставляет более полную информацию о файлах и каталогах, включая их метаданные, такие как время создания, модификации, размер, разрешения и т.д.
+_**Поддержка метаданных**_ -  NIO.2 предоставляет более полную информацию о файлах и каталогах, включая их метаданные, такие как время создания, модификации, размер, разрешения и т.д.
 
-_**Улучшенная поддержка наблюдения за файлами:**_ -  NIO.2 позволяет наблюдать за изменением состояния файлов, таких как создание, удаление, изменение, и получать уведомления об этих изменениях.
+_**Улучшенная поддержка наблюдения за файлами**_ -  NIO.2 позволяет наблюдать за изменением состояния файлов, таких как создание, удаление, изменение, и получать уведомления об этих изменениях.
+
+## Примеры используемых классов
+
+**1. Path:** представляет собой путь к файлу или каталогу. Используется для создания, открытия, удаления, перемещения, копирования и выполнения других операций с файлами и каталогами.
+```java
+    Path path = Paths.get("C:\Users\Username\Documents\file.txt");
+```
+**2. Files:** предоставляет статические методы для работы с файлами и каталогами, такие как чтение, запись, копирование, перемещение, удаление, получение информации о файлах.
+```java
+    boolean fileExists = Files.exists(path);
+    long fileSize = Files.size(path);
+    Files.copy(path, new File("C:\Users\Username\Desktop\file.txt").toPath());
+```
+**3. FileSystem:** представляет файловую систему. С помощью этого класса можно получить доступ к различным файловым системам, таким как локальная файловая система, сетевые файловые системы, облачные хранилища и т.д.
+```java
+    FileSystem fileSystem = FileSystems.getDefault();
+```
+**4. WatchService:** позволяет наблюдать за изменениями состояния файлов и каталогов.
+```java
+    WatchService watchService = fileSystem.newWatchService(); 
+    Path directoryToWatch = Paths.get("C:\Users\Username\Documents"); 
+    directoryToWatch.register(watchService, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_DELETE, StandardWatchEventKinds.ENTRY_MODIFY);
+
+    while (true) {
+        WatchKey key = watchService.take(); 
+        for (WatchEvent<?> event : key.pollEvents()) { 
+            if (event.kind() == StandardWatchEventKinds.ENTRY_CREATE) {
+                System.out.println("Файл создан: " + event.context()); 
+            } else if (event.kind() == StandardWatchEventKinds.ENTRY_DELETE) {
+                System.out.println("Файл удален: " + event.context()); 
+            } else if (event.kind() == StandardWatchEventKinds.ENTRY_MODIFY) {
+                System.out.println("Файл модифицирован: " + event.context()); 
+            } 
+        }
+        boolean valid = key.reset(); 
+        if (!valid) {
+            break;
+        }
+    }
+```
+**5. FileAttributeView:** предоставляет доступ к атрибутам файлов и каталогов, таким как разрешения, владельцы, время создания и т. д.
+```java
+    DosFileAttributeView view = Files.getFileAttributeView(path, DosFileAttributeView.class);
+    boolean isReadOnly = view.isReadOnly();
+```
+**6. AsynchronousFileChannel:** позволяет выполнять операции ввода-вывода с файлами асинхронно.
+```java
+    AsynchronousFileChannel fileChannel = AsynchronousFileChannel.open(path, StandardOpenOption.CREATE, StandardOpenOption.WRITE); 
+    fileChannel.write(ByteBuffer.wrap("Hello, NIO.2!".getBytes()), 0, null, (result, attachment) -> {
+        if (result.isDone() && !result.isCancelled()) {
+            System.out.println("Данные записаны в файл"); 
+        }
+    });
+```
+
+## Преимущества Java NIO.2
++ Улучшенная производительность: NIO.2 предоставляет более эффективные способы работы с файлами и каталогами.
++ Удобство использования: NIO.2 предлагает более интуитивный API, который упрощает разработку приложений.
++ Поддержка асинхронного ввода-вывода: NIO.2 позволяет выполнять операции ввода-вывода асинхронно, что увеличивает производительность и отзывчивость приложений.
++ Поддержка метаданных: NIO.2 предоставляет более полную информацию о файлах и каталогах.
+
+## Заключение
+
+Java NIO.2 — это мощный набор API, который значительно улучшает работу с файлами и каталогами в Java. Он предлагает более современные и эффективные способы взаимодействия с файловыми системами, что делает разработку приложений более удобной и производительной.
 
 [Основные отличия Java IO и Java NIO](https://habr.com/ru/articles/235585/)
 
