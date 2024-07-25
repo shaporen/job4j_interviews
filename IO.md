@@ -194,6 +194,62 @@ try (GZIPOutputStream gzip = new GZIPOutputStream(new FileOutputStream("compress
 
 [_к оглавлению_](#Оглавление)
 #### 3. Что такое Java NIO?
+
+Java NIO (New Input/Output) — это пакет, введенный в Java 1.4, который предоставляет более гибкий и эффективный способ работы с вводом и выводом по сравнению с традиционными потоками ввода-вывода (Java IO). Основной целью NIO является улучшение производительности и добавление функциональности, такой как поддержка неблокирующего ввода-вывода и возможность работы с большими объемами данных.
+
+**Основные компоненты Java NIO**
+
+1. Channels (Каналы) - каналы представляют собой абстракцию для взаимодействия с источниками и приемниками данных (файлы, сокеты и т. д.). Они могут работать как в блокирующем, так и в неблокирующем режиме.
+
+Примеры классов:
+- FileChannel: для работы с файлами.
+- SocketChannel: для работы с сетевыми соединениями.
+
+2. Buffers (Буферы) - буферы представляют собой массивы байтов или других типов, которые используются для хранения данных временно во время передач.
+
+Примеры классов:
+- ByteBuffer: для работы с массивами байтов.
+- CharBuffer: для работы с символами и строками.
+
+3. Selectors (Селекторы) - cелекторы предоставляют возможность мониторинга состояния нескольких каналов, позволяя работать с ними в неблокирующем режиме.
+
+Пример класса:
+- Selector: непосредственно для отслеживания нескольких подключений. 
+
+**Пример работы с FileChannel**
+```java```
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.file.StandardOpenOption;
+import java.nio.file.Paths;
+import java.nio.file.Path;
+
+import java.io.File;
+import java.io.IOException;
+
+public class FileChannelExample {
+    public static void main(String[] args) {
+        Path path = Paths.get("example.txt");
+        String text = "Hello, NIO!";
+        
+        try (FileChannel fileChannel = FileChannel.open(path, StandardOpenOption.CREATE, StandardOpenOption.WRITE)) {
+            ByteBuffer buffer = ByteBuffer.allocate(48);
+            buffer.clear(); // очищаем буфер перед записью
+            buffer.put(text.getBytes());
+            buffer.flip(); // переключаемся в режим чтения
+            
+            while (buffer.hasRemaining()) {
+                fileChannel.write(buffer);
+            }
+
+            System.out.println("Данные записаны в файл: " + path.toAbsolutePath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```java```
+
 [_к оглавлению_](#Оглавление)
 #### 4. Что такое NIO.2?
 [_к оглавлению_](#Оглавление)
